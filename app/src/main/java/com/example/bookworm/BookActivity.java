@@ -20,6 +20,16 @@ public class BookActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book);
 
         initViews();
+//        String desc = "On the world called Hyperion, beyond the law of the Hegemony of Man," + "\n " +
+//                "there waits the creature called the Shrike. There are those who worship it." + "\n " +
+//                "There are those who fear it. And there are those who have vowed to destroy it." + "\n" +
+//                "In the Valley of the Time Tombs, where huge, brooding structures move backward through time," + "\n" +
+//                " the Shrike waits for them all. On the eve of Armageddon, with the entire galaxy at war," + "\n" +
+//                "seven pilgrims set forth on a final voyage to Hyperion seeking the answers to the unsolved" + "\n" +
+//                "riddles of their lives. Each carries a desperate hope—and a terrible secret. And one may hold" + "\n" +
+//                "the fate of humanity in his hands.";
+
+        String desc = "On the world called Hyperion, beyond the law of the Hegemony of Man, there waits the creature called the Shrike. There are those who worship it. There are those who fear it. And there are those who have vowed to destroy it. In the Valley of the Time Tombs, where huge, brooding structures move backward through time, the Shrike waits for them all. On the eve of Armageddon, with the entire galaxy at war, seven pilgrims set forth on a final voyage to Hyperion seeking the answers to the unsolved riddles of their lives. Each carries a desperate hope—and a terrible secret. And one may hold the fate of humanity in his hands.";
 
         Book book = new Book(1,
                 "Hyperion",
@@ -27,7 +37,7 @@ public class BookActivity extends AppCompatActivity {
                 "https://upload.wikimedia.org/wikipedia/en/7/73/Hyperion_cover.jpg",
                 "https://www.penguinrandomhouse.com/series/HYC/hyperion-cantos",
                 "On the eve of Armageddon, with the entire galaxy at war, seven pilgrims set forth on a final voyage to Hyperion seeking the answers to the unsolved riddles of their lives.",
-                "Long description");
+                desc);
 
         this.setData(book);
     }
