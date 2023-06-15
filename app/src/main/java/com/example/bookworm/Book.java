@@ -1,15 +1,37 @@
 package com.example.bookworm;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "book")
 public class Book {
 
+    @PrimaryKey(autoGenerate = true)
     private int id;
+
+    @ColumnInfo(name = "title")
     private String name;
+
+    @ColumnInfo(name = "author")
     private String author;
+
+    @ColumnInfo(name = "image_url")
     private String imageURL;
+
+    @ColumnInfo(name = "book_url")
     private String bookURL;
+
+    @ColumnInfo(name = "short_description")
     private String shortDesc;
+
+    @ColumnInfo(name = "long_description")
     private String longDesc;
 
+    @ColumnInfo(name = "status")
+    private String status;
+
+    @ColumnInfo(name = "is_expanded")
     private boolean isExpanded;
 
     public Book(int id, String name, String author, String imageURL, String bookURL, String shortDesc, String longDesc) {
@@ -21,6 +43,15 @@ public class Book {
         this.shortDesc = shortDesc;
         this.longDesc = longDesc;
         this.isExpanded = false;
+        this.status = "Interested"; //Interested, Reading, Finished, Abandoned
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public boolean isExpanded() {
