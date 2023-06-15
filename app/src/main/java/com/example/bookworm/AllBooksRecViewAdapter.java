@@ -1,6 +1,7 @@
 package com.example.bookworm;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,9 @@ public class AllBooksRecViewAdapter extends RecyclerView.Adapter<AllBooksRecView
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(allBooksContext, bookList.get(position).getName(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(allBooksContext, bookList.get(position).getName(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(allBooksContext, BookActivity.class);
+                allBooksContext.startActivity(intent);
             }
         });
 
