@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BookActivity">
+    tools:context=".ViewBookActivity">
 
     <ScrollView
         android:id="@+id/book_scroll_view"
@@ -39,7 +39,7 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
             <Button
-                android:id="@+id/btn_add_to_read"
+                android:id="@+id/btn_add_interested"
                 android:layout_width="170dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="20dp"
@@ -55,10 +55,10 @@
                 android:layout_marginTop="28dp"
                 android:text="Finished"
                 android:textAllCaps="true"
-                app:layout_constraintEnd_toEndOf="@+id/btn_add_to_read"
+                app:layout_constraintEnd_toEndOf="@+id/btn_add_interested"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/btn_add_to_read"
-                app:layout_constraintTop_toBottomOf="@+id/btn_add_to_read" />
+                app:layout_constraintStart_toStartOf="@+id/btn_add_interested"
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_interested" />
 
             <Button
                 android:id="@+id/btn_abandoned"

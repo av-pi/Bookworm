@@ -4,8 +4,18 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
+/**
+ * Entity class for managing each Book added in the application
+ */
 @Entity(tableName = "book")
-public class Book {
+public class Book implements Serializable {
+
+    public static final String BOOK_STATUS_READING = "reading";
+    public static final String BOOK_STATUS_INTERESTED = "Interested";
+    public static final String BOOK_STATUS_FINISHED = "finished";
+    public static final String BOOK_STATUS_ABANDONED = "abandoned";
 
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -43,7 +53,7 @@ public class Book {
         this.shortDesc = shortDesc;
         this.longDesc = longDesc;
         this.isExpanded = false;
-        this.status = "Interested"; //Interested, Reading, Finished, Abandoned
+        this.status = "interested"; //Interested, Reading, Finished, Abandoned
     }
 
     public String getStatus() {

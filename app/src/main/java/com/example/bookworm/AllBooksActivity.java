@@ -1,11 +1,10 @@
 package com.example.bookworm;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +12,14 @@ import java.util.List;
 public class AllBooksActivity extends AppCompatActivity {
 
     private RecyclerView allBooksRecView;
-    private AllBooksRecViewAdapter adapter;
+    private BooksRecViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_books);
 
-        adapter = new AllBooksRecViewAdapter(this);
+        adapter = new BooksRecViewAdapter(this);
         allBooksRecView = findViewById(R.id.all_books_rec_view);
 
         allBooksRecView.setAdapter(adapter);
@@ -30,6 +29,7 @@ public class AllBooksActivity extends AppCompatActivity {
 
         List<Book> books = retrieveAllBooks();
 
+        // TODO: delete commented code
 //        Book book = new Book(1,
 //                "Dune",
 //                "Frank Herbert",

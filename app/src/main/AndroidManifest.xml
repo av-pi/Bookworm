@@ -14,7 +14,19 @@
         android:theme="@style/Theme.Bookworm"
         tools:targetApi="31">
         <activity
-            android:name=".BookActivity"
+            android:name=".AbandonedBooksActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FinishedBooksActivity"
+            android:exported="false" />
+        <activity
+            android:name=".InterestedBooksActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CurrentlyReadingBooksActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewBookActivity"
             android:exported="false" />
         <activity
             android:name=".AllBooksActivity"

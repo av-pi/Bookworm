@@ -1,5 +1,7 @@
 package com.example.bookworm;
 
+import static com.example.bookworm.ViewBookActivity.CLICKED_BOOK;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -8,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -19,12 +20,12 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class AllBooksRecViewAdapter extends RecyclerView.Adapter<AllBooksRecViewAdapter.ViewHolder> {
+public class BooksRecViewAdapter extends RecyclerView.Adapter<BooksRecViewAdapter.ViewHolder> {
 
     private ArrayList<Book> bookList = new ArrayList<>();
     private Context allBooksContext;
 
-    public AllBooksRecViewAdapter(Context allBooksContext) {
+    public BooksRecViewAdapter(Context allBooksContext) {
         this.allBooksContext = allBooksContext;
     }
 
@@ -56,7 +57,8 @@ public class AllBooksRecViewAdapter extends RecyclerView.Adapter<AllBooksRecView
             @Override
             public void onClick(View v) {
                 //Toast.makeText(allBooksContext, bookList.get(position).getName(), Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(allBooksContext, BookActivity.class);
+                Intent intent = new Intent(allBooksContext, ViewBookActivity.class);
+                intent.putExtra(CLICKED_BOOK, bookList.get(position));
                 allBooksContext.startActivity(intent);
             }
         });
