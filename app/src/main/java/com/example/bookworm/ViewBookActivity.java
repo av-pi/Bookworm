@@ -19,7 +19,7 @@ import com.bumptech.glide.Glide;
 
 public class ViewBookActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView bookImage;
-    private Button addReading, wantToRead, finishedReading, abandoned;
+    private Button addReading, wantToRead, finishedReading, abandoned, homePage;
     private TextView bookTitle, bookAuthor, bookLongDescription;
 
     public static final String CLICKED_BOOK = "clickedBook";
@@ -29,7 +29,7 @@ public class ViewBookActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book);
+        setContentView(R.layout.activity_view_book);
 
         initViews();
 //        String desc = "On the world called Hyperion, beyond the law of the Hegemony of Man," + "\n " +
@@ -56,8 +56,8 @@ public class ViewBookActivity extends AppCompatActivity implements View.OnClickL
         if (intent != null) {
             this.book = (Book) intent.getSerializableExtra(CLICKED_BOOK);
             if (this.book != null) {
-                this.setData(book);
-                this.handleShelfButtonVisibility(book);
+                this.setData();
+                this.handleShelfButtonVisibility();
             }
         }
     }
@@ -85,6 +85,7 @@ public class ViewBookActivity extends AppCompatActivity implements View.OnClickL
                 if (v.isEnabled()) {
                     addBookToShelf(BOOK_STATUS_READING);
                     Toast.makeText(this, "Added " + book.getName() + " to reading shelf", Toast.LENGTH_SHORT).show();
+                    handleShelfButtonVisibility();
                 }
                 break;
 
@@ -92,6 +93,7 @@ public class ViewBookActivity extends AppCompatActivity implements View.OnClickL
                 if (v.isEnabled()) {
                     addBookToShelf(BOOK_STATUS_INTERESTED);
                     Toast.makeText(this, "Added " + book.getName() + " to interested shelf", Toast.LENGTH_SHORT).show();
+                    handleShelfButtonVisibility();
                 }
                 break;
 
@@ -99,6 +101,7 @@ public class ViewBookActivity extends AppCompatActivity implements View.OnClickL
                 if (v.isEnabled()) {
                     addBookToShelf(BOOK_STATUS_FINISHED);
                     Toast.makeText(this, "Added " + book.getName() + " to finished shelf", Toast.LENGTH_SHORT).show();
+                    handleShelfButtonVisibility();
                 }
                 break;
 
@@ -106,13 +109,18 @@ public class ViewBookActivity extends AppCompatActivity implements View.OnClickL
                 if (v.isEnabled()) {
                     addBookToShelf(BOOK_STATUS_ABANDONED);
                     Toast.makeText(this, "Added " + book.getName() + " to abandoned shelf", Toast.LENGTH_SHORT).show();
+                    handleShelfButtonVisibility();
                 }
                 break;
+
+            case R.id.btn_go_home:
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                startActivity(intent);
 
             default:
                 break;
         }
-        handleShelfButtonVisibility(book);
+
     }
 
     /**
@@ -137,13 +145,15 @@ public class ViewBookActivity extends AppCompatActivity implements View.OnClickL
         bookAuthor = findViewById(R.id.txt_author);
         bookLongDescription = findViewById(R.id.txt_long_desc);
 
+        homePage = findViewById(R.id.btn_go_home);
+        homePage.setOnClickListener(this);
+
     }
 
     /**
      * Handle visibility of shelf buttons based on which shelf book is in
-     * @param book
      */
-    private void handleShelfButtonVisibility(Book book) {
+    private void handleShelfButtonVisibility() {
         if (book.getStatus().equals(BOOK_STATUS_READING)) {
             addReading.setEnabled(false);
 
@@ -178,8 +188,6 @@ public class ViewBookActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-
-
     private boolean checkReadingStatus(Book book) {
         if (book.getStatus().equals(BOOK_STATUS_READING)) {
             return true;
@@ -210,9 +218,8 @@ public class ViewBookActivity extends AppCompatActivity implements View.OnClickL
 
     /**
      * Populate UI elements with data about the current book
-     * @param book
      */
-    private void setData(Book book) {
+    private void setData() {
         bookTitle.setText(book.getName());
         bookAuthor.setText(book.getAuthor());
         bookLongDescription.setText(book.getLongDesc());
