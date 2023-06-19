@@ -26,4 +26,7 @@ public interface BookDao {
 
     @Query("SELECT * FROM book WHERE status = :status")
     List<Book> getShelf(String status);
+
+    //@Query("UPDATE book SET status = :status WHERE id = :bookId")
+    //void addToShelf(int bookId, String status);
 }

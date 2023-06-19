@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intentFour);
                 break;
 
-            case R.id.btn_abandoned:
+            case R.id.btn_add_abandoned:
                 Intent intentFive = new Intent(v.getContext(), AbandonedBooksActivity.class);
                 startActivity(intentFive);
                 break;
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         wishList = findViewById(R.id.btn_want_to_read);
         wishList.setOnClickListener(this);
 
-        abandoned = findViewById(R.id.btn_abandoned);
+        abandoned = findViewById(R.id.btn_add_abandoned);
         abandoned.setOnClickListener(this);
     }
 

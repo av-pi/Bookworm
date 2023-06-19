@@ -49,7 +49,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/btn_add_reading" />
 
             <Button
-                android:id="@+id/btn_finished"
+                android:id="@+id/btn_add_finished"
                 android:layout_width="170dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="28dp"
@@ -61,15 +61,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/btn_add_interested" />
 
             <Button
-                android:id="@+id/btn_abandoned"
+                android:id="@+id/btn_add_abandoned"
                 android:layout_width="170dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="28dp"
                 android:text="Abandon"
-                app:layout_constraintEnd_toEndOf="@+id/btn_finished"
+                app:layout_constraintEnd_toEndOf="@+id/btn_add_finished"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/btn_finished"
-                app:layout_constraintTop_toBottomOf="@+id/btn_finished" />
+                app:layout_constraintStart_toStartOf="@+id/btn_add_finished"
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_finished" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"

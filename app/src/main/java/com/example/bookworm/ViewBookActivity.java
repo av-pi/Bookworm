@@ -9,18 +9,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-public class ViewBookActivity extends AppCompatActivity {
+public class ViewBookActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView bookImage;
     private Button addReading, wantToRead, finishedReading, abandoned;
     private TextView bookTitle, bookAuthor, bookLongDescription;
 
     public static final String CLICKED_BOOK = "clickedBook";
+
+    private Book book;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,35 +54,65 @@ public class ViewBookActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if (intent != null) {
-            Book book = (Book) intent.getSerializableExtra(CLICKED_BOOK);
-            if (book != null) {
+            this.book = (Book) intent.getSerializableExtra(CLICKED_BOOK);
+            if (this.book != null) {
                 this.setData(book);
-                this.handleShelfButtons(book);
+                this.handleShelfButtonVisibility(book);
             }
         }
     }
 
     /**
-     * Disable shelf buttons where the book already exists
-     * @param book
+     * Move book to the specified shelf
+     * @param shelf
      */
-    private void handleShelfButtons(Book book) {
-        if (book.getStatus().equals(BOOK_STATUS_READING)) {
-            addReading.setEnabled(false);
-        }
+    private void addBookToShelf(String shelf) {
+        book.setStatus(shelf);
+        AppDatabase db = AppDatabase.getDbInstance(this);
+        db.bookDao().update(book);
+    }
 
-        if (book.getStatus().equals(BOOK_STATUS_INTERESTED)) {
-            wantToRead.setEnabled(false);
-        }
+    /**
+     * Click event handler to update shelf of book
+     * @param v The view that was clicked.
+     */
+    public void onClick(View v) {
 
-        if (book.getStatus().equals(BOOK_STATUS_FINISHED)) {
-            finishedReading.setEnabled(false);
-        }
+        //AppDatabase db = AppDatabase.getDbInstance(this);
+        switch (v.getId()) {
 
-        if (book.getStatus().equals(BOOK_STATUS_ABANDONED)) {
-            abandoned.setEnabled(false);
-        }
+            case R.id.btn_add_reading:
+                if (v.isEnabled()) {
+                    addBookToShelf(BOOK_STATUS_READING);
+                    Toast.makeText(this, "Added " + book.getName() + " to reading shelf", Toast.LENGTH_SHORT).show();
+                }
+                break;
 
+            case R.id.btn_add_interested:
+                if (v.isEnabled()) {
+                    addBookToShelf(BOOK_STATUS_INTERESTED);
+                    Toast.makeText(this, "Added " + book.getName() + " to interested shelf", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            case R.id.btn_add_finished:
+                if (v.isEnabled()) {
+                    addBookToShelf(BOOK_STATUS_FINISHED);
+                    Toast.makeText(this, "Added " + book.getName() + " to finished shelf", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            case R.id.btn_add_abandoned:
+                if (v.isEnabled()) {
+                    addBookToShelf(BOOK_STATUS_ABANDONED);
+                    Toast.makeText(this, "Added " + book.getName() + " to abandoned shelf", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            default:
+                break;
+        }
+        handleShelfButtonVisibility(book);
     }
 
     /**
@@ -88,15 +122,63 @@ public class ViewBookActivity extends AppCompatActivity {
         bookImage = findViewById(R.id.book_image);
 
         addReading = findViewById(R.id.btn_add_reading);
+        addReading.setOnClickListener(this);
+
         wantToRead = findViewById(R.id.btn_add_interested);
-        finishedReading = findViewById(R.id.btn_finished);
-        abandoned = findViewById(R.id.btn_abandoned);
+        wantToRead.setOnClickListener(this);
+
+        finishedReading = findViewById(R.id.btn_add_finished);
+        finishedReading.setOnClickListener(this);
+
+        abandoned = findViewById(R.id.btn_add_abandoned);
+        abandoned.setOnClickListener(this);
 
         bookTitle = findViewById(R.id.txt_title);
         bookAuthor = findViewById(R.id.txt_author);
         bookLongDescription = findViewById(R.id.txt_long_desc);
 
     }
+
+    /**
+     * Handle visibility of shelf buttons based on which shelf book is in
+     * @param book
+     */
+    private void handleShelfButtonVisibility(Book book) {
+        if (book.getStatus().equals(BOOK_STATUS_READING)) {
+            addReading.setEnabled(false);
+
+            wantToRead.setEnabled(true);
+            finishedReading.setEnabled(true);
+            abandoned.setEnabled(true);
+        }
+
+        if (book.getStatus().equals(BOOK_STATUS_INTERESTED)) {
+            wantToRead.setEnabled(false);
+
+            addReading.setEnabled(true);
+            finishedReading.setEnabled(true);
+            abandoned.setEnabled(true);
+        }
+
+        if (book.getStatus().equals(BOOK_STATUS_FINISHED)) {
+            finishedReading.setEnabled(false);
+
+            wantToRead.setEnabled(true);
+            addReading.setEnabled(true);
+            abandoned.setEnabled(true);
+        }
+
+        if (book.getStatus().equals(BOOK_STATUS_ABANDONED)) {
+            abandoned.setEnabled(false);
+
+            wantToRead.setEnabled(true);
+            finishedReading.setEnabled(true);
+            addReading.setEnabled(true);
+        }
+
+    }
+
+
 
     private boolean checkReadingStatus(Book book) {
         if (book.getStatus().equals(BOOK_STATUS_READING)) {
@@ -140,5 +222,6 @@ public class ViewBookActivity extends AppCompatActivity {
                 .load(book.getImageURL())
                 .into(bookImage);
     }
+
 
 }
