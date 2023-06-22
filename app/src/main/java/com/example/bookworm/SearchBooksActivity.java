@@ -56,6 +56,10 @@ public class SearchBooksActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Perform the search and parse the response into usable java Book objects
+     * @param query
+     */
     private void searchQuery(String query) {
 
         // RequestQueue initialized
@@ -65,7 +69,6 @@ public class SearchBooksActivity extends AppCompatActivity {
         jsonRequest = new JsonObjectRequest(Request.Method.GET, url + query, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                //TODO: Parse response object and show results
                 try {
                     JSONArray array = response.getJSONArray("items");
                     for (int i = 0; i < array.length(); i++) {
@@ -74,7 +77,7 @@ public class SearchBooksActivity extends AppCompatActivity {
                         // Book object fields
                         String title = item.getJSONObject("volumeInfo").getString("title");
                         String author = parseAuthors(item.getJSONObject("volumeInfo").getJSONArray("authors"));
-                        String imgUrl = item.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail") + ".jpg";
+                        String imgUrl = parseImageUrl(item.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail"));
                         String bookUrl = item.getJSONObject("volumeInfo").getString("previewLink");
                         String shortDesc = item.getJSONObject("searchInfo").getString("textSnippet");
                         String longDesc = item.getJSONObject("volumeInfo").getString("description");
@@ -90,13 +93,19 @@ public class SearchBooksActivity extends AppCompatActivity {
                     searchResultsRecView.setLayoutManager(new LinearLayoutManager(SearchBooksActivity.this));
 
                     adapter.setBookList(searchResultsList);
-                    //test.setText(response.getString("title"));
+
                 } catch (JSONException e) {
                     Toast.makeText(SearchBooksActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
             }
 
+            /**
+             * Parse one or more authors into a single
+             * string for the Book author field
+             * @param array
+             * @return String with all the authors
+             */
             private String parseAuthors(JSONArray array) {
                 String authors = "";
                 for (int i = 0; i < array.length(); i++) {
@@ -108,6 +117,16 @@ public class SearchBooksActivity extends AppCompatActivity {
                     authors = authors + "\n";
                 }
                 return authors;
+            }
+
+            /**
+             * Turn image url from http to https
+             * @param url
+             * @return newUrl with https
+             */
+            private String parseImageUrl(String url) {
+                String newUrl = url.substring(0,4) + "s" + url.substring(4);
+                return newUrl;
             }
         }, new Response.ErrorListener() {
             @Override
