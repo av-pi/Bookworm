@@ -65,6 +65,8 @@ public class SearchBooksActivity extends AppCompatActivity {
         // RequestQueue initialized
         requestQueue = Volley.newRequestQueue(this);
 
+        //TODO: Need to handle search failures more gracefully
+
         // String Request initialized
         jsonRequest = new JsonObjectRequest(Request.Method.GET, url + query, null, new Response.Listener<JSONObject>() {
             @Override
