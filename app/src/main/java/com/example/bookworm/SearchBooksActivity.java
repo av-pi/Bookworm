@@ -88,6 +88,7 @@ public class SearchBooksActivity extends AppCompatActivity {
                             Book book = new Book(title, author, imgUrl, bookUrl, shortDesc, longDesc);
                             searchResultsList.add(book);
                         } catch(Exception e) {
+                            // if any of the above fields are missing ignore current book
                             continue;
                         }
 

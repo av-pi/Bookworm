@@ -2,6 +2,7 @@ package com.example.bookworm;
 
 import static com.example.bookworm.ViewBookActivity.CLICKED_BOOK;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -45,7 +46,7 @@ public class BooksRecViewAdapter extends RecyclerView.Adapter<BooksRecViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.bookName.setText(bookList.get(position).getName());
 
         Glide.with(allBooksContext)
@@ -92,7 +93,7 @@ public class BooksRecViewAdapter extends RecyclerView.Adapter<BooksRecViewAdapte
         private CardView parent;
         private ImageView bookImage;
         private TextView bookName;
-        private ImageView downArrow, upArrow;
+        private ImageView downArrow, upArrow, deleteButton;
         private TextView shortDesc, authorName;
         private RelativeLayout expandedLayout;
 
@@ -107,6 +108,7 @@ public class BooksRecViewAdapter extends RecyclerView.Adapter<BooksRecViewAdapte
             expandedLayout = itemView.findViewById(R.id.expanded_relative_layout);
             authorName = itemView.findViewById(R.id.txt_author);
             shortDesc = itemView.findViewById(R.id.txt_short_desc);
+            deleteButton = itemView.findViewById(R.id.btn_delete_book);
 
             downArrow.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -125,6 +127,7 @@ public class BooksRecViewAdapter extends RecyclerView.Adapter<BooksRecViewAdapte
                     notifyItemChanged(getAdapterPosition());
                 }
             });
+
 
 
         }

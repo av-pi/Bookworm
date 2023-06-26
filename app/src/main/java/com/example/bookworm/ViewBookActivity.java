@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.bumptech.glide.Glide;
 
 public class ViewBookActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView bookImage;
+    private ImageButton deleteBook;
     private Button addReading, wantToRead, finishedReading, abandoned, homePage;
     private TextView bookTitle, bookAuthor, bookLongDescription;
 
@@ -79,6 +81,12 @@ public class ViewBookActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    private void deleteBook() {
+        AppDatabase db = AppDatabase.getDbInstance(this);
+        db.bookDao().delete(book);
+        Toast.makeText(this, book.getName() + " removed", Toast.LENGTH_SHORT).show();
+    }
+
     /**
      * Click event handler to update shelf of book
      * @param v The view that was clicked.
@@ -123,6 +131,11 @@ public class ViewBookActivity extends AppCompatActivity implements View.OnClickL
             case R.id.btn_go_home:
                 Intent intent = new Intent(v.getContext(), MainActivity.class);
                 startActivity(intent);
+                break;
+
+            case R.id.btn_delete:
+                deleteBook();
+                break;
 
             default:
                 break;
@@ -154,6 +167,9 @@ public class ViewBookActivity extends AppCompatActivity implements View.OnClickL
 
         homePage = findViewById(R.id.btn_go_home);
         homePage.setOnClickListener(this);
+
+        deleteBook = findViewById(R.id.btn_delete);
+        deleteBook.setOnClickListener(this);
 
     }
 

@@ -162,15 +162,29 @@
             <Button
                 android:id="@+id/btn_go_home"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:text="Homepage"
                 android:textAllCaps="false"
                 app:layout_constraintBottom_toTopOf="@+id/guideline3"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
-                app:layout_constraintHorizontal_bias="0.51"
+                app:layout_constraintHorizontal_bias="0.093"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@+id/book_image"
                 app:layout_constraintVertical_bias="0.675" />
+
+            <ImageButton
+                android:id="@+id/btn_delete"
+                android:layout_width="54dp"
+                android:layout_height="50dp"
+                android:backgroundTint="#6200ED"
+                android:contentDescription="Click to delete book"
+                android:src="@drawable/ic_delete_button"
+                app:layout_constraintBottom_toTopOf="@+id/guideline3"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintHorizontal_bias="0.428"
+                app:layout_constraintStart_toEndOf="@+id/btn_go_home"
+                app:layout_constraintTop_toBottomOf="@+id/book_image"
+                app:layout_constraintVertical_bias="0.694" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
