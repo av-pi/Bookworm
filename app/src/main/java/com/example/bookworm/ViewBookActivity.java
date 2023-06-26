@@ -85,6 +85,8 @@ public class ViewBookActivity extends AppCompatActivity implements View.OnClickL
         AppDatabase db = AppDatabase.getDbInstance(this);
         db.bookDao().delete(book);
         Toast.makeText(this, book.getName() + " removed", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     /**
