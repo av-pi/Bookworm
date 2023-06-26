@@ -74,17 +74,23 @@ public class SearchBooksActivity extends AppCompatActivity {
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject item = array.getJSONObject(i);
 
-                        // Book object fields
-                        String title = item.getJSONObject("volumeInfo").getString("title");
-                        String author = parseAuthors(item.getJSONObject("volumeInfo").getJSONArray("authors"));
-                        String imgUrl = parseImageUrl(item.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail"));
-                        String bookUrl = item.getJSONObject("volumeInfo").getString("previewLink");
-                        String shortDesc = item.getJSONObject("searchInfo").getString("textSnippet");
-                        String longDesc = item.getJSONObject("volumeInfo").getString("description");
+                        // Surrounded in try catch blocks to handle missing fields in JSON response
+                        try {
+                            // Book object fields
+                            String title = item.getJSONObject("volumeInfo").getString("title");
+                            String author = parseAuthors(item.getJSONObject("volumeInfo").getJSONArray("authors"));
+                            String imgUrl = parseImageUrl(item.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail"));
+                            String bookUrl = item.getJSONObject("volumeInfo").getString("previewLink");
+                            String shortDesc = item.getJSONObject("searchInfo").getString("textSnippet");
+                            String longDesc = item.getJSONObject("volumeInfo").getString("description");
 
 
-                        Book book = new Book(title, author, imgUrl, bookUrl, shortDesc, longDesc);
-                        searchResultsList.add(book);
+                            Book book = new Book(title, author, imgUrl, bookUrl, shortDesc, longDesc);
+                            searchResultsList.add(book);
+                        } catch(Exception e) {
+                            continue;
+                        }
+
 
                     }
                     BooksRecViewAdapter adapter = new BooksRecViewAdapter(SearchBooksActivity.this);
@@ -95,7 +101,7 @@ public class SearchBooksActivity extends AppCompatActivity {
                     adapter.setBookList(searchResultsList);
 
                 } catch (JSONException e) {
-                    Toast.makeText(SearchBooksActivity.this, "Search gave no results", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SearchBooksActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
             }
