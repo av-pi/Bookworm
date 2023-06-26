@@ -65,8 +65,6 @@ public class SearchBooksActivity extends AppCompatActivity {
         // RequestQueue initialized
         requestQueue = Volley.newRequestQueue(this);
 
-        //TODO: Need to handle search failures more gracefully
-
         // String Request initialized
         jsonRequest = new JsonObjectRequest(Request.Method.GET, url + query, null, new Response.Listener<JSONObject>() {
             @Override
@@ -97,7 +95,7 @@ public class SearchBooksActivity extends AppCompatActivity {
                     adapter.setBookList(searchResultsList);
 
                 } catch (JSONException e) {
-                    Toast.makeText(SearchBooksActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(SearchBooksActivity.this, "Search gave no results", Toast.LENGTH_LONG).show();
                 }
 
             }
