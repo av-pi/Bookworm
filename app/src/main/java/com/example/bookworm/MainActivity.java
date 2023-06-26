@@ -6,10 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button allBooks, currentBooks, readBooks, wishList, abandoned;
+    private FloatingActionButton searchBooks;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intentFive);
                 break;
 
+            case R.id.btn_search_books:
+                //Toast.makeText(this, "fab triggered", Toast.LENGTH_SHORT).show();
+                onSearchRequested();
+
             default:
                 break;
         }
@@ -72,6 +81,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         abandoned = findViewById(R.id.btn_add_abandoned);
         abandoned.setOnClickListener(this);
+
+        searchBooks = findViewById(R.id.btn_search_books);
+        searchBooks.setOnClickListener(this);
+
+
     }
 
 

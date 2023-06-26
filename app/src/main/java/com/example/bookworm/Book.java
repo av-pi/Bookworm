@@ -2,6 +2,7 @@ package com.example.bookworm;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -53,7 +54,19 @@ public class Book implements Serializable {
         this.shortDesc = shortDesc;
         this.longDesc = longDesc;
         this.isExpanded = false;
-        this.status = "interested"; //Interested, Reading, Finished, Abandoned
+        this.status = "interested"; //Interested, Reading, Finished, Abandoned, Searched
+    }
+
+    @Ignore
+    public Book(String name, String author, String imageURL, String bookURL, String shortDesc, String longDesc) {
+        this.name = name;
+        this.author = author;
+        this.imageURL = imageURL;
+        this.bookURL = bookURL;
+        this.shortDesc = shortDesc;
+        this.longDesc = longDesc;
+        this.isExpanded = false;
+        this.status = "interested";
     }
 
     public String getStatus() {

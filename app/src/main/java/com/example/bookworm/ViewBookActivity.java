@@ -67,9 +67,16 @@ public class ViewBookActivity extends AppCompatActivity implements View.OnClickL
      * @param shelf
      */
     private void addBookToShelf(String shelf) {
+        //TODO: Check if book isn't in db then add to db.
+        // If it is in db then just update.
         book.setStatus(shelf);
         AppDatabase db = AppDatabase.getDbInstance(this);
-        db.bookDao().update(book);
+
+        if (db.bookDao().exists(book.getName(), book.getAuthor())) {
+            db.bookDao().update(book);
+        } else {
+            db.bookDao().insert(book);
+        }
     }
 
     /**
